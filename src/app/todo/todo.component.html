@@ -1,48 +1,73 @@
 <div class="container">
     <div class="row">
         <div class="col-5 mx-auto">
-            
-            
-            <h3 class="bg-primary text-white p-3">
-                Mehmet'in listesi
+
+
+            <h3 class="bg-warning text-grey p-3">
+                {{getName()}}'ın listesi
             </h3>
 
             <div class="input-group mb-3">
-                <input type="text" class="form-control">
-                <button class="btn btn-outline-primary">Add</button>
+                <input type="text" class="form-control" placeholder="Yapılacakları gir !"
+                [(ngModel)]="inputText" (keyup.enter)="addItem();">
+
+                <button (click)="addItem();" 
+                [class.disabled] = "inputText.length == 0 "
+                [class] = "addBtnClass()"
+                class="btn">Add</button>
             </div>
 
             <div class="form-check mb-3">
-                <input type="checkbox" class="form-check-input" name="" id="displayAll">
-                <label for="displayAll">Hepsini Göster</label>
+                <input type="checkbox" [(ngModel)]="displayAll" class="form-check-input" name="" id="displayAll">
+                <label for="displayAll" class="form-check-label">Hepsini Göster</label>
             </div>
 
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Descp.</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Kahvaltı</td>
-                        <td>Yes</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Spor</td>
-                        <td>Yes</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Yüzme</td>
-                        <td>No</td>
-                    </tr>                                        
-                </tbody>
-            </table>
+            <div class="my-2">
+                {{displayCount()}} görev tamamlandı.
+            </div>
+
+            <div class="alert alert-warning" *ngIf="getItems().length == 0 else itemsTable" >
+                Tüm görevler tamamlandı.
+            </div>
+
+
+            <ng-template #itemsTable >
+                
+                <table class="table table-bordered">
+                    <thead >
+                        <tr>
+                            <th>ID</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <tr *ngFor="let item of getItems(); let i= index;" [class]="{'bg-warning':item.action,'bg-primary':!item.action }">
+                            <td>{{i+1}}</td>
+                            <td>{{item.description}}</td>
+                            <td>
+                                <!-- v1 -->
+                                <!-- <div *ngIf="item.action">Yes</div>
+                                <div *ngIf="!item.action">No</div> -->
+
+                                <!-- v2 -->
+                                <div *ngIf="item.action else noTemplate">
+                                    Yes
+                                </div>
+                                <ng-template #noTemplate>
+                                    No
+                                </ng-template>
+
+
+                            </td>
+                            <td >
+                                <input type="checkbox" (change)="onActionChange(item)" [(ngModel)]="item.action" name="" id="">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+    
+            </ng-template>
 
         </div>
     </div>
