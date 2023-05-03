@@ -5,7 +5,7 @@ export class Model {
     items: TodoItem[];
 
     constructor(){
-        this.name = "Mehmet Can";
+        this.name = "BYMCS";
         this.items = [
             // { description : "Kahvaltı", action : true},
             // { description : "Alışveriş", action : false},
