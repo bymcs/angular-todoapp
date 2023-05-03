@@ -1,5 +1,8 @@
 # Todoapp
 
+![chrome_YTsRtJGCgP](https://user-images.githubusercontent.com/56798318/235909385-2532f88f-2fb2-4d7c-8f6a-a45608c1acce.png)
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.7.
 
 ## Development server
